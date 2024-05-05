@@ -2,15 +2,15 @@ version: '3'
 
 services:
   distro:
-    image: alpine
-    container_name: Alpine_Distro
+    image: alpine:latest    # Changed the base image to use the Alpine Linux image
+    container_name: alpine_distro   # Changed container_name to follow lowercase convention
     restart: always
     entrypoint: tail -f /dev/null
     networks:
       - mynetwork
 
   database:
-    image: postgres:latest
+    image: postgres:alpine    # Changed the base image to use the Alpine Linux image
     container_name: postgres_db
     volumes:
       - data:/var/lib/postgresql
@@ -20,7 +20,7 @@ services:
       - mynetwork
 
   web:
-    image: nginx:latest
+    image: nginx:alpine    # Changed the base image to use the Alpine Linux image
     container_name: nginx
     volumes:
       - ./mysite.template:/etc/nginx/conf.d/mysite.template
@@ -28,11 +28,11 @@ services:
       - "8080:80"
     environment:
       - NGINX_HOST=example.com
-      - NGINX_port=80
+      - NGINX_PORT=80    # Corrected the environment variable name to match NGINX_PORT
     networks:
       - mynetwork
-    links:
-      - database:db
+    depends_on:    # Replaced links with depends_on for service orchestration
+      - database
       - distro
 
 networks:
@@ -41,4 +41,4 @@ networks:
 
 volumes:
   data:
-    external: true
+    external: false    # Changed external to false to create the volume internally
