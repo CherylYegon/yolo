@@ -1,10 +1,27 @@
-Yolo App
-Welcome to Yolo App, a web application built with the MERN (MongoDB, Express.js, React.js, Node.js) stack.
+## Yolo App
 
-Overview
-Yolo App provides users with a platform to [provide a brief description of what the application does]. It allows users to [mention key features or functionalities].
+## Table of Contents
 
-Installation
+    Description
+    Project Set-Up
+    Installation
+    Technology Used
+    License
+    Author Info
+
+## Description
+Yolo App is a web application built with the MERN (MongoDB, Express.js, React.js, Node.js) stack. It provides users with a platform to [provide a brief description of what the application does]. It allows users to [mention key features or functionalities].
+
+## Project Set-Up
+Installation Requirement
+To set up the project, you'll need:
+
+   A laptop
+   Internet connection
+   GitHub account
+   VS Code
+
+## Installation
 To run Yolo App locally, follow these steps:
 
 Clone the repository:
@@ -16,24 +33,13 @@ bash
 Copy code
 cd yolo
 Install dependencies:
-Copy code
-npm install
-Usage
-To start the backend server, run:
-
-arduino
-Copy code
-npm run server
-To start the frontend client, run:
-
 bash
 Copy code
-cd client
-npm start
-Open your web browser and navigate to http://localhost:3000 to access Yolo App.
+npm install
 
-Dependencies
-Yolo App relies on the following dependencies:
+
+## Technology Used
+Yolo App relies on the following technologies:
 
 Node.js
 Express.js
@@ -44,14 +50,10 @@ Multer
 Body-parser
 Concurrently
 Cors
-Contributing
-We welcome contributions from the community! If you'd like to contribute to Yolo App, please follow these steps:
+## License
+MIT License Copyright © [2024] [Cheryl Yegon]
 
-Fork the repository
-Create a new branch for your feature: git checkout -b feature/new-feature
-Make your changes and commit them: git commit -m "Add new feature"
-Push to the branch: git push origin feature/new-feature
-Submit a pull request
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+## Author Info
+GitHub - CherylYegon
 
+LinkedIn - CherylYegon
