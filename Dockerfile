@@ -13,11 +13,8 @@ RUN npm install
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Expose port 5000 to the outside world (optional)
-EXPOSE 5000
-
-# Command to run the application (optional)
-CMD ["npm", "start"]
+# Run build commands (if any)
+# Example: RUN npm run build
 
 # Stage 2: Runtime environment
 FROM node:alpine AS runtime

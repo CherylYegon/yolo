@@ -1,0 +1,24 @@
+---
+- name: Install Docker
+  yum:
+    name: docker
+    state: present
+
+- name: Start and Enable Docker Service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Pull Docker Image for Database
+  docker_image:
+    name: postgres:latest
+    source: pull
+
+- name: Run Database Container
+  docker_container:
+    name: database
+    image: postgres:latest
+    state: started
+    ports:
+      - "3306:3306"

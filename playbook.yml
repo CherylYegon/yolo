@@ -1,0 +1,38 @@
+---
+- name: Setup Web Application Containers
+  hosts: vagrant
+  become: yes
+  tasks:
+    - name: Determine the operating system
+      ansible.builtin.setup:
+        gather_subset: min
+
+    - name: Ensure Python is installed on Debian-based systems
+      ansible.builtin.package:
+        name: python3
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Ensure Python is installed on Red Hat-based systems
+      ansible.builtin.package:
+        name: python3
+        state: present
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Ensure Docker is installed on Debian-based systems
+      ansible.builtin.package:
+        name: docker.io
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Ensure Docker is installed on Red Hat-based systems
+      ansible.builtin.package:
+        name: docker
+        state: present
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Ensure Docker service is started and enabled
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: yes

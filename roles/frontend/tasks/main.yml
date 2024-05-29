@@ -1,0 +1,24 @@
+---
+- name: Install Docker
+  yum:
+    name: docker
+    state: present
+
+- name: Start and Enable Docker Service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Pull Docker Image for Frontend
+  docker_image:
+    name: nginx:latest
+    source: pull
+
+- name: Run Frontend Container
+  docker_container:
+    name: frontend
+    image: nginx:latest
+    state: started
+    ports:
+      - "80:80"
