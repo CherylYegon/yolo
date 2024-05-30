@@ -36,3 +36,66 @@
         name: docker
         state: started
         enabled: yes
+
+    - name: Install git
+      ansible.builtin.package:
+        name: git
+        state: present
+
+    - name: Install pip for Python 3
+      ansible.builtin.package:
+        name: python3-pip
+        state: present
+
+    - name: Download Docker Compose
+      ansible.builtin.get_url:
+        url: "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ ansible_system | lower }}-{{ ansible_architecture }}"
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x'
+        timeout: 60
+      retries: 5
+      delay: 10
+      register: download_result
+      until: download_result is succeeded
+
+    - name: Make Docker Compose executable
+      ansible.builtin.command: chmod +x /usr/local/bin/docker-compose
+      when: download_result is succeeded
+
+    - name: Check if Docker Compose is downloaded
+      ansible.builtin.stat:
+        path: /usr/local/bin/docker-compose
+      register: compose_stat
+
+    - name: Debug Docker Compose path
+      ansible.builtin.debug:
+        msg: "Docker Compose exists: {{ compose_stat.stat.exists }}"
+
+    - name: Verify Docker Compose installation
+      ansible.builtin.command: /usr/local/bin/docker-compose --version
+      register: compose_version
+      failed_when: "compose_version.rc != 0"
+      changed_when: false
+
+    - name: Ensure /usr/local/bin is in PATH
+      ansible.builtin.lineinfile:
+        path: /etc/profile
+        line: 'export PATH=$PATH:/usr/local/bin'
+        state: present
+
+    - name: Apply PATH changes
+      ansible.builtin.shell: source /etc/profile
+
+    - name: Clone repository from GitHub
+      ansible.builtin.git:
+        repo: 'https://github.com/CherylYegon/yolo'
+        dest: /home/s/development/yolo
+        force: yes
+
+    - name: Install application dependencies
+      ansible.builtin.command:
+        cmd: 'npm install'
+        chdir: /home/s/development/yolo/client
+
+   
+   

@@ -35,9 +35,9 @@ Vagrant.configure("2") do |config|
     libvirt.memory = 1024
     libvirt.cpus = 1
   end
-
-  # Network configuration
-  config.vm.network "private_network", ip: "192.168.121.46"
+  
+  # Forward port 3000 from guest to host
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
 
   # Provisioning with Ansible
   config.vm.provision "ansible" do |ansible|

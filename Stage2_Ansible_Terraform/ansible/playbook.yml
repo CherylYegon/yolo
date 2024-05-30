@@ -1,0 +1,14 @@
+---
+- hosts: local
+  connection: local
+  become: true
+  tasks:
+    - name: Provision resources using Terraform
+      become: yes
+      command: 
+        cmd: /snap/bin/terraform apply -auto-approve
+        chdir: /home/s/development/yolo/Stage2_Ansible_Terraform/terraform
+
+    - name: Configure environment
+      include_role:
+        name: configure

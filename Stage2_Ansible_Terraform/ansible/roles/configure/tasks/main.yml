@@ -1,0 +1,5 @@
+---
+- name: Include the app role for configuration
+  include_role:
+    name: app
+
